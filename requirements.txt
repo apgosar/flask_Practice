@@ -4,6 +4,7 @@ python-dotenv
 pymongo
 certifi
 pytest
+mongomock
 pylint
 bandit
 black
