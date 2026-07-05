@@ -18,6 +18,12 @@ pipeline {
             steps {
                 sh '''
                     echo "===== Build Stage ====="
+                    echo "Creating .env file..."
+
+                cat > .env <<EOF
+MONGO_URI=$MONGO_URI
+SECRET_KEY=$SECRET_KEY
+EOF
 
                     python3 --version
 
