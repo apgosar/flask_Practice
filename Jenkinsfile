@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+                MONGO_URI = credentials('apgosar-mongo-uri')
+                SECRET_KEY = credentials('apgosar-mongo-secret-key')
+            }
+
     stages {
 
         stage('Checkout') {
