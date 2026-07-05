@@ -73,17 +73,59 @@ EOF
         }
     }
 
-    post {
+     post {
+
         success {
-            echo "Pipeline completed successfully!"
+            emailext(
+                to: 'ankur.gosar@gmail.com',
+                subject: "✅ SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: """
+    Hello,
+    
+    The Jenkins pipeline completed successfully.
+    
+    Job Name     : ${env.JOB_NAME}
+    Build Number : ${env.BUILD_NUMBER}
+    Status       : SUCCESS
+    
+    The Flask application was:
+    ✔ Checked out
+    ✔ Built
+    ✔ Tested
+    ✔ Deployed successfully
+    ✔ Verified Deployment
+    
+    Build URL:
+    ${env.BUILD_URL}
+    
+    Regards,
+    Jenkins CI/CD
+    """
+            )
         }
-
+    
         failure {
-            echo "Pipeline failed!"
-        }
-
-        always {
-            cleanWs()
+            emailext(
+                to: 'ankur.gosar@gmail.com',
+                subject: "❌ FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: """
+    Hello,
+    
+    The Jenkins pipeline has failed.
+    
+    Job Name     : ${env.JOB_NAME}
+    Build Number : ${env.BUILD_NUMBER}
+    Status       : FAILURE
+    
+    Please review the console output for error details.
+    
+    Build URL:
+    ${env.BUILD_URL}
+    
+    Regards,
+    Jenkins CI/CD
+    """
+            )
         }
     }
 }
